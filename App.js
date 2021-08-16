@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   Button,
+  FlatList,
   ScrollView,
   StyleSheet,
   Text,
@@ -50,24 +51,23 @@ export default function App() {
         />
         <Button title="Search" onPress={onSearch} />
       </View>
-      <ScrollView>
-        {members
-          .filter(
-            (member) =>
-              member.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
-          )
-          .map((member, i) => (
-            <View key={i} style={styles.member}>
-              <Text>{member.name}</Text>
-              <Button
-                title="Delete"
-                onPress={() =>
-                  setMembers(members.filter((m) => m.name !== member.name))
-                }
-              />
-            </View>
-          ))}
-      </ScrollView>
+      <FlatList
+        data={members.filter(
+          (member) =>
+            member.name.toLowerCase().indexOf(search.toLowerCase()) >= 0
+        )}
+        renderItem={(itemData) => (
+          <View style={styles.member}>
+            <Text>{itemData.item.name}</Text>
+            <Button
+              title="Delete"
+              onPress={() =>
+                setMembers(members.filter((m) => m.name !== member.name))
+              }
+            />
+          </View>
+        )}
+      />
     </View>
   );
 }
