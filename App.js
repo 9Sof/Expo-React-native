@@ -12,32 +12,36 @@ import {
 export default function App() {
   const [search, setSearch] = useState("");
   const [members, setMembers] = useState([
-    { name: "John Doe", id: 1 },
-    { name: "Jane Doe", id: 2 },
-    { name: "Bob Smith", id: 3 },
-    { name: "Sally Jones", id: 4 },
-    { name: "Mike Brown", id: 5 },
-    { name: "John Doe", id: 1 },
-    { name: "Jane Doe", id: 2 },
-    { name: "Bob Smith", id: 3 },
-    { name: "Sally Jones", id: 4 },
-    { name: "Mike Brown", id: 5 },
-    { name: "John Doe", id: 1 },
-    { name: "Jane Doe", id: 2 },
-    { name: "Bob Smith", id: 3 },
-    { name: "Sally Jones", id: 4 },
-    { name: "Mike Brown", id: 5 },
-    { name: "John Doe", id: 1 },
-    { name: "Jane Doe", id: 2 },
-    { name: "Bob Smith", id: 3 },
-    { name: "Sally Jones", id: 4 },
-    { name: "Mike Brown", id: 5 },
+    { name: "John Doe" },
+    { name: "Jane Doe" },
+    { name: "Bob Smith" },
+    { name: "Sally Jones" },
+    { name: "Mike Brown" },
+    { name: "John Doe" },
+    { name: "Jane Doe" },
+    { name: "Bob Smith" },
+    { name: "Sally Jones" },
+    { name: "Mike Brown" },
+    { name: "Mike Brown" },
   ]);
+  const [addMember, setAddMember] = useState({});
   const onSearch = () => {
     console.log(search);
   };
   return (
     <View style={styles.container}>
+      <View style={(styles.search, { paddingBottom: 20 })}>
+        <TextInput
+          placeholder="Name"
+          onChangeText={(value) => setAddMember({ name: value })}
+        />
+        <Button
+          title="Add"
+          onPress={() =>
+            addMember?.name && setMembers(members.concat(addMember))
+          }
+        />
+      </View>
       <View style={styles.search}>
         <TextInput
           style={{ width: "80%" }}
@@ -58,7 +62,7 @@ export default function App() {
               <Button
                 title="Delete"
                 onPress={() =>
-                  setMembers(members.filter((m) => m.id !== member.id))
+                  setMembers(members.filter((m) => m.name !== member.name))
                 }
               />
             </View>
@@ -79,6 +83,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: 10,
+    paddingTop: 15,
   },
 });
